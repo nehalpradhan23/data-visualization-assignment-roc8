@@ -18,6 +18,7 @@ import {
 export const MyBarChart = () => {
   const {
     formattedDataObject: { formattedData },
+    selectedBarValueObject: { selectedBarValue, setSelectedBarValue },
   } = useGlobalContext();
 
   // aggregate data ============================
@@ -51,6 +52,11 @@ export const MyBarChart = () => {
   const transformedData = aggregateData(formattedData);
   console.log("transformed data: ", transformedData);
 
+  const handleBarClick = (data: any) => {
+    console.log(data);
+    setSelectedBarValue(data.name);
+  };
+
   // ===================================================
   return (
     <div className="w-[40%] max-md:w-full max-lg:w-[60%]">
@@ -70,7 +76,12 @@ export const MyBarChart = () => {
           <YAxis type="category" dataKey="name" />
           <Tooltip />
           <Legend />
-          <Bar dataKey="total" fill="blue" barSize={20}>
+          <Bar
+            dataKey="total"
+            fill="blue"
+            barSize={20}
+            onClick={handleBarClick}
+          >
             <LabelList dataKey="total" position="right" />
           </Bar>
           {/* <Brush dataKey="name" height={30} stroke="#8884d8" />{" "}

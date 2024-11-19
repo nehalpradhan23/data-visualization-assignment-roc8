@@ -16,4 +16,8 @@ export interface GlobalContextType {
     formattedData: SheetDataObject[];
     setFormattedData: React.Dispatch<React.SetStateAction<SheetDataObject[]>>;
   };
+  selectedBarValueObject: {
+    selectedBarValue: string | null;
+    setSelectedBarValue: React.Dispatch<React.SetStateAction<string | null>>;
+  };
 }

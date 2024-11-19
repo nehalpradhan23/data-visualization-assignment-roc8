@@ -1,11 +1,12 @@
 "use client";
-import MyHorizontalBarChart from "@/components/BarChart";
-import { MyBarChart } from "@/components/MyBarChart";
+import { MyBarChart } from "@/components/charts/MyBarChart";
+import { MyLineChart } from "@/components/charts/MyLineChart";
 import { useGlobalContext } from "@/context/ContextApi";
 
 export default function Home() {
   const {
     formattedDataObject: { formattedData },
+    selectedBarValueObject: { selectedBarValue },
   } = useGlobalContext();
 
   console.log("formatted data: ", formattedData);
@@ -22,8 +23,15 @@ export default function Home() {
           <div key={index}>{JSON.stringify(item)}</div>
         ))}
       </div> */}
-      {/* <MyHorizontalBarChart /> */}
       <MyBarChart />
+      {selectedBarValue && (
+        <div className="">
+          <div className="text-center text-3xl font-bold">
+            Line chart for: {selectedBarValue}
+          </div>
+          <MyLineChart />
+        </div>
+      )}
     </div>
   );
 }

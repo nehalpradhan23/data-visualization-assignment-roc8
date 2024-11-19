@@ -4,6 +4,10 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 const ContextProvider = createContext<GlobalContextType>({
   formattedDataObject: { formattedData: [], setFormattedData: () => {} },
+  selectedBarValueObject: {
+    selectedBarValue: null,
+    setSelectedBarValue: () => {},
+  },
 });
 
 export default function GlobalContextProvider({
@@ -13,6 +17,7 @@ export default function GlobalContextProvider({
 }) {
   const [rawData, setRawData] = useState<[][]>([]);
   const [formattedData, setFormattedData] = useState<SheetDataObject[]>([]);
+  const [selectedBarValue, setSelectedBarValue] = useState<string | null>(null);
 
   // fetch data ============================================
   useEffect(() => {
@@ -57,6 +62,7 @@ export default function GlobalContextProvider({
     <ContextProvider.Provider
       value={{
         formattedDataObject: { formattedData, setFormattedData },
+        selectedBarValueObject: { selectedBarValue, setSelectedBarValue },
       }}
     >
       {children}
