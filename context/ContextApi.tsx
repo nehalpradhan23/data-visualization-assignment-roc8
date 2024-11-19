@@ -30,12 +30,8 @@ export default function GlobalContextProvider({
     };
 
     fetchSheetData();
-
-    // if (rawData.length > 0) {
-    //   formatData();
-    // }
   }, []);
-  console.log("raw data: ", rawData);
+  // console.log("raw data: ", rawData);
 
   // format data =======================================================
   useEffect(() => {

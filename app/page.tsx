@@ -1,5 +1,6 @@
 "use client";
-import { MyBarChart } from "@/components/BarChart";
+import MyHorizontalBarChart from "@/components/BarChart";
+import { MyBarChart } from "@/components/MyBarChart";
 import { useGlobalContext } from "@/context/ContextApi";
 
 export default function Home() {
@@ -7,7 +8,7 @@ export default function Home() {
     formattedDataObject: { formattedData },
   } = useGlobalContext();
 
-  console.log(formattedData);
+  console.log("formatted data: ", formattedData);
 
   // {"Day":"4/10/2022","Age":"15-25","Gender":"Male","A":"880","B":"815","C":"825","D":"444","E":"154","F":"859"}
   // {"Day":"4/10/2022","Age":">25","Gender":"Male","A":"955","B":"674","C":"427","D":"401","E":"820","F":"311"}
@@ -16,12 +17,13 @@ export default function Home() {
 
   return (
     <div className="">
-      <div className="">
+      {/* <div className="">
         {formattedData?.map((item, index) => (
           <div key={index}>{JSON.stringify(item)}</div>
         ))}
-      </div>
-      {/* <MyBarChart /> */}
+      </div> */}
+      {/* <MyHorizontalBarChart /> */}
+      <MyBarChart />
     </div>
   );
 }

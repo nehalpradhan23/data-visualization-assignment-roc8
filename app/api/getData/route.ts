@@ -1,5 +1,5 @@
 export async function GET(request: Request) {
-  const apiKey = "AIzaSyBZAZaqDM7_Yf3B_Wo9coASJ-f_xEiv-Ag"; // Replace with your API key
+  const apiKey = process.env.GOOGLE_SHEET_API_KEY; // Replace with your API key
   const spreadsheetId = "1l7GstWHc69HPV0irSdvoMIyHgtufUPKsbtCiNw7IKR0"; // Replace with your spreadsheet ID
   const range = "Sheet3"; // Adjust the range as needed
 
