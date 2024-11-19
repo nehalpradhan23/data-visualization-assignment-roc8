@@ -1,0 +1,95 @@
+//  const aggregateData = (
+//     data: SheetDataObject[],
+//     ageFilter: string | null,
+//     genderFilter: string | null,
+//     startDate: Date | null,
+//     endDate: Date | null
+//   ) => {
+//     const result: { [key: string]: number } = {
+//       A: 0,
+//       B: 0,
+//       C: 0,
+//       D: 0,
+//       E: 0,
+//       F: 0,
+//     };
+//     const parseDate = (dateString: string) =>
+//       parse(dateString, "dd/MM/yyyy", new Date());
+//     data
+//       .filter((entry) => {
+//         const entryDate = parseDate(entry.Day);
+//         const isAfterStartDate = startDate
+//           ? isAfter(entryDate, startDate) ||
+//             entryDate.getTime() === startDate.getTime()
+//           : true;
+//         const isBeforeEndDate = endDate
+//           ? isBefore(entryDate, endDate) ||
+//             entryDate.getTime() === endDate.getTime()
+//           : true;
+//         return (
+//           (!ageFilter || entry.Age === ageFilter) &&
+//           (!genderFilter || entry.Gender === genderFilter) &&
+//           isAfterStartDate &&
+//           isBeforeEndDate
+//         );
+//       })
+//       .forEach((entry) => {
+//         result.A += parseInt(entry.A, 10);
+//         result.B += parseInt(entry.B, 10);
+//         result.C += parseInt(entry.C, 10);
+//         result.D += parseInt(entry.D, 10);
+//         result.E += parseInt(entry.E, 10);
+//         result.F += parseInt(entry.F, 10);
+//       });
+//     return [
+//       { name: "A", total: result.A },
+//       { name: "B", total: result.B },
+//       { name: "C", total: result.C },
+//       { name: "D", total: result.D },
+//       { name: "E", total: result.E },
+//       { name: "F", total: result.F },
+//     ];
+//   };
+
+// =======================================================================
+// =======================================================================
+// =======================================================================
+
+// const aggregateData = (
+//   data: SheetDataObject[],
+//   ageFilter: string | null,
+//   genderFilter: string | null,
+//   startDate: Date | null,
+//   endDate: Date | null
+// ) => {
+//   const result: { [key: string]: number } = {
+//     A: 0,
+//     B: 0,
+//     C: 0,
+//     D: 0,
+//     E: 0,
+//     F: 0,
+//   };
+//   data
+//     .filter(
+//       (entry) =>
+//         (!ageFilter || entry.Age === ageFilter) &&
+//         (!genderFilter || entry.Gender === genderFilter)
+//     )
+//     .forEach((entry) => {
+//       result.A += parseInt(entry.A, 10);
+//       result.B += parseInt(entry.B, 10);
+//       result.C += parseInt(entry.C, 10);
+//       result.D += parseInt(entry.D, 10);
+//       result.E += parseInt(entry.E, 10);
+//       result.F += parseInt(entry.F, 10);
+//     });
+//   return [
+//     { name: "A", total: result.A },
+//     { name: "B", total: result.B },
+//     { name: "C", total: result.C },
+//     { name: "D", total: result.D },
+//     { name: "E", total: result.E },
+//     { name: "F", total: result.F },
+//   ];
+// };

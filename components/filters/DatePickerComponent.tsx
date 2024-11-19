@@ -18,7 +18,7 @@ export const DatePickerComponent = () => {
     setEndDate(date);
   };
 
-  console.log("start and end date: ", startDate, endDate);
+  // console.log("start and end date: ", startDate, endDate);
 
   // set date
   const parseDate = (dateString: string) =>
@@ -30,7 +30,7 @@ export const DatePickerComponent = () => {
       setEndDate(max(dates));
     }
   }, [formattedData]);
-  console.log("start and end date:======== ", startDate, endDate);
+  // console.log("start and end date:======== ", startDate, endDate);
 
   return (
     <div>

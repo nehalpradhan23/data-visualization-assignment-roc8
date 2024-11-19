@@ -1,6 +1,6 @@
 import { useGlobalContext } from "@/context/ContextApi";
 import { SheetDataObject } from "@/types/types";
-import { parse } from "date-fns";
+import { isAfter, isBefore, parse } from "date-fns";
 import React from "react";
 import {
   BarChart,
@@ -41,14 +41,26 @@ export const MyBarChart = () => {
       E: 0,
       F: 0,
     };
-    // const parseDate = (dateString:string) => parse(dateString, 'dd/MM/yyyy', new Date())
+    const parseDate = (dateString: string) =>
+      parse(dateString, "dd/MM/yyyy", new Date());
     data
-      .filter(
-        (entry) =>
-          // const entryDate = parseDate
+      .filter((entry) => {
+        const entryDate = parseDate(entry.Day);
+        const isAfterStartDate = startDate
+          ? isAfter(entryDate, startDate) ||
+            entryDate.getTime() === startDate.getTime()
+          : true;
+        const isBeforeEndDate = endDate
+          ? isBefore(entryDate, endDate) ||
+            entryDate.getTime() === endDate.getTime()
+          : true;
+        return (
           (!ageFilter || entry.Age === ageFilter) &&
-          (!genderFilter || entry.Gender === genderFilter)
-      )
+          (!genderFilter || entry.Gender === genderFilter) &&
+          isAfterStartDate &&
+          isBeforeEndDate
+        );
+      })
       .forEach((entry) => {
         result.A += parseInt(entry.A, 10);
         result.B += parseInt(entry.B, 10);
@@ -66,6 +78,7 @@ export const MyBarChart = () => {
       { name: "F", total: result.F },
     ];
   };
+
   // ------------------------------------------
   const transformedData = aggregateData(
     formattedData,
@@ -74,7 +87,7 @@ export const MyBarChart = () => {
     startDate,
     endDate
   );
-  // console.log("transformed data: ", transformedData);
+  console.log("transformed data: ", transformedData);
 
   const handleBarClick = (data: any) => {
     setSelectedBarValue(data.name);

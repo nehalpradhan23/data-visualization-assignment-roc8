@@ -1,6 +1,7 @@
 import { useGlobalContext } from "@/context/ContextApi";
 import { SheetDataObject } from "@/types/types";
 import { getDate } from "@/utils/getDate";
+import { isAfter, isBefore, parse } from "date-fns";
 import React from "react";
 import {
   CartesianGrid,
@@ -17,10 +18,36 @@ export const MyLineChart = () => {
   const {
     selectedBarValueObject: { selectedBarValue },
     formattedDataObject: { formattedData },
+    ageFilterObject: { ageFilter },
+    genderFilterObject: { genderFilter },
+    dateObject: { startDate, endDate },
   } = useGlobalContext();
 
+  const parseDate = (dateString: string) =>
+    parse(dateString, "dd/MM/yyyy", new Date());
+
   const getLineChartData = (category: string) => {
-    return formattedData.map((entry) => ({
+    const filteredData = formattedData.filter((entry) => {
+      const entryDate = parseDate(entry.Day);
+      const isAfterStartDate = startDate
+        ? isAfter(entryDate, startDate) ||
+          entryDate.getTime() === startDate.getTime()
+        : true;
+      const isBeforeEndDate = endDate
+        ? isBefore(entryDate, endDate) ||
+          entryDate.getTime() === endDate.getTime()
+        : true;
+
+      return (
+        (!ageFilter || entry.Age === ageFilter) &&
+        (!genderFilter || entry.Gender === genderFilter) &&
+        isAfterStartDate &&
+        isBeforeEndDate
+      );
+    });
+    // ====================
+    // return formattedData.map((entry) => ({
+    return filteredData.map((entry) => ({
       // Day: entry.Day,
       Day: getDate(entry.Day),
       Value: parseInt(entry[category as keyof SheetDataObject] as string, 10),
