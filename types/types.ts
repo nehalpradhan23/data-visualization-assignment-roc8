@@ -20,10 +20,6 @@ export interface GlobalContextType {
     selectedBarValue: string | null;
     setSelectedBarValue: React.Dispatch<React.SetStateAction<string | null>>;
   };
-  selectedFiltersObject: {
-    selectedFilters: [];
-    setSelectedFilters: React.Dispatch<React.SetStateAction<[]>>;
-  };
   ageFilterObject: {
     ageFilter: string | null;
     setAgeFilter: React.Dispatch<React.SetStateAction<string | null>>;
@@ -32,22 +28,10 @@ export interface GlobalContextType {
     genderFilter: string | null;
     setGenderFilter: React.Dispatch<React.SetStateAction<string | null>>;
   };
-  // dateObject: {
-  //   startDate: Date | string;
-  //   setStartDate: React.Dispatch<React.SetStateAction<Date | string>>;
-  //   endDate: Date | string;
-  //   setEndDate: React.Dispatch<React.SetStateAction<Date | string>>;
-  // };
   dateObject: {
     startDate: Date | null;
     setStartDate: React.Dispatch<React.SetStateAction<Date | null>>;
     endDate: Date | null;
     setEndDate: React.Dispatch<React.SetStateAction<Date | null>>;
   };
-  // dateObject: {
-  //   startDate: Date | undefined;
-  //   setStartDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
-  //   endDate: Date | undefined;
-  //   setEndDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
-  // };
 }

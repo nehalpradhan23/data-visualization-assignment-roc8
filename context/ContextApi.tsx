@@ -1,16 +1,13 @@
 "use client";
 import { GlobalContextType, SheetDataObject } from "@/types/types";
 import { createContext, useContext, useEffect, useState } from "react";
+import Cookies from "js-cookie";
 
 const ContextProvider = createContext<GlobalContextType>({
   formattedDataObject: { formattedData: [], setFormattedData: () => {} },
   selectedBarValueObject: {
     selectedBarValue: null,
     setSelectedBarValue: () => {},
-  },
-  selectedFiltersObject: {
-    selectedFilters: [],
-    setSelectedFilters: () => {},
   },
   ageFilterObject: {
     ageFilter: null,
@@ -36,12 +33,20 @@ export default function GlobalContextProvider({
   const [rawData, setRawData] = useState<[][]>([]);
   const [formattedData, setFormattedData] = useState<SheetDataObject[]>([]);
   const [selectedBarValue, setSelectedBarValue] = useState<string | null>(null);
-  const [selectedFilters, setSelectedFilters] = useState<[]>([]);
-  const [ageFilter, setAgeFilter] = useState<string | null>(null);
-  const [genderFilter, setGenderFilter] = useState<string | null>(null);
 
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
+  const [ageFilter, setAgeFilter] = useState<string | null>(
+    Cookies.get("ageFilter") || null
+  );
+  const [genderFilter, setGenderFilter] = useState<string | null>(
+    Cookies.get("genderFilter") || null
+  );
+
+  const [startDate, setStartDate] = useState<Date | null>(
+    Cookies.get("startDate") ? new Date(Cookies.get("startDate")!) : null
+  );
+  const [endDate, setEndDate] = useState<Date | null>(
+    Cookies.get("endDate") ? new Date(Cookies.get("endDate")!) : null
+  );
 
   // fetch data ============================================
   useEffect(() => {
@@ -83,7 +88,26 @@ export default function GlobalContextProvider({
 
   // save data ==============================
   useEffect(() => {
-    //
+    if (ageFilter) {
+      Cookies.set("ageFilter", ageFilter);
+    } else {
+      Cookies.remove("ageFilter");
+    }
+    if (genderFilter) {
+      Cookies.set("genderFilter", genderFilter);
+    } else {
+      Cookies.remove("genderFilter");
+    }
+    if (startDate) {
+      Cookies.set("startDate", startDate.toISOString());
+    } else {
+      Cookies.remove("startDate");
+    }
+    if (endDate) {
+      Cookies.set("endDate", endDate.toISOString());
+    } else {
+      Cookies.remove("endDate");
+    }
   }, [ageFilter, genderFilter, startDate, endDate]);
 
   // ==============================================
@@ -92,7 +116,6 @@ export default function GlobalContextProvider({
       value={{
         formattedDataObject: { formattedData, setFormattedData },
         selectedBarValueObject: { selectedBarValue, setSelectedBarValue },
-        selectedFiltersObject: { selectedFilters, setSelectedFilters },
         ageFilterObject: { ageFilter, setAgeFilter },
         genderFilterObject: { genderFilter, setGenderFilter },
         dateObject: { startDate, endDate, setEndDate, setStartDate },
