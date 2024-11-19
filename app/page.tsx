@@ -24,7 +24,7 @@ export default function Home() {
           <div key={index}>{JSON.stringify(item)}</div>
         ))}
       </div> */}
-      <div className="flex w-full">
+      <div className="flex w-full max-md:flex-col">
         <MyBarChart />
         <Filters />
         {/* {selectedBarValue && <Filters />} */}

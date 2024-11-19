@@ -81,31 +81,10 @@ export default function GlobalContextProvider({
     }
   }, [rawData]);
 
-  // set start and end dates --------------------------------------------
+  // save data ==============================
   useEffect(() => {
-    // get initial dates from data
-    // const startDateString = formattedData[0]?.Day?.replace(/\//g, "-");
-    // const endDateString = formattedData[
-    //   formattedData?.length - 1
-    // ]?.Day?.replace(/\//g, "-");
     //
-    // const startDateString = formattedData[0]?.Day;
-    // const endDateString = formattedData[formattedData?.length - 1];
-    // const parseStartDate = parse(startDateString, "dd/MM/yyyy", new Date());
-    // console.log(parseStartDate);
-    // startDate(parseStartDate)
-    // console.log("start and end: ", startDateString, endDateString);
-    // -----------------------------------
-    // const date = new Date(engDate);
-    // const formattedDate2 = date?.toString();
-    // console.log("long date: ", formattedDate2);
-    // setStartDate(new Date(startDateString));
-    // setEndDate(new Date(endDateString));
-    // // setStartDate(parseStartDate);
-    // // setEndDate(parseEndDate);
-    // setStartDate(startDateString);
-    // setEndDate(endDateString);
-  }, [formattedData]);
+  }, [ageFilter, genderFilter, startDate, endDate]);
 
   // ==============================================
   return (
