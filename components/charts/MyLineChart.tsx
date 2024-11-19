@@ -30,7 +30,7 @@ export const MyLineChart = () => {
   const lineChartData = selectedBarValue
     ? getLineChartData(selectedBarValue)
     : [];
-  console.log("line chart data: ", lineChartData);
+  // console.log("line chart data: ", lineChartData);
 
   // const getDate= getDate()
   // ==============================
@@ -41,12 +41,6 @@ export const MyLineChart = () => {
         <LineChart data={lineChartData}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="Day" />
-          {/* <XAxis
-            label={{ value: "Date", position: "insideBottom", offset: 0 }}
-          /> */}
-          {/* <YAxis
-            label={{ value: "Value", angle: -90, position: "insideLeft" }}
-          /> */}
           <YAxis />
           <Tooltip /> <Legend />
           <Line type="monotone" dataKey="Value" stroke="#8884d8" />

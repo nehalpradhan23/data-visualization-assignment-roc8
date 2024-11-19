@@ -1,5 +1,6 @@
 import { useGlobalContext } from "@/context/ContextApi";
 import { SheetDataObject } from "@/types/types";
+import { parse } from "date-fns";
 import React from "react";
 import {
   BarChart,
@@ -19,10 +20,19 @@ export const MyBarChart = () => {
   const {
     formattedDataObject: { formattedData },
     selectedBarValueObject: { selectedBarValue, setSelectedBarValue },
+    ageFilterObject: { ageFilter },
+    genderFilterObject: { genderFilter },
+    dateObject: { startDate, endDate },
   } = useGlobalContext();
 
-  // aggregate data ============================
-  const aggregateData = (data: SheetDataObject[]) => {
+  // aggregate data for bar chart ============================
+  const aggregateData = (
+    data: SheetDataObject[],
+    ageFilter: string | null,
+    genderFilter: string | null,
+    startDate: Date | null,
+    endDate: Date | null
+  ) => {
     const result: { [key: string]: number } = {
       A: 0,
       B: 0,
@@ -31,14 +41,22 @@ export const MyBarChart = () => {
       E: 0,
       F: 0,
     };
-    data.forEach((entry) => {
-      result.A += parseInt(entry.A, 10);
-      result.B += parseInt(entry.B, 10);
-      result.C += parseInt(entry.C, 10);
-      result.D += parseInt(entry.D, 10);
-      result.E += parseInt(entry.E, 10);
-      result.F += parseInt(entry.F, 10);
-    });
+    // const parseDate = (dateString:string) => parse(dateString, 'dd/MM/yyyy', new Date())
+    data
+      .filter(
+        (entry) =>
+          // const entryDate = parseDate
+          (!ageFilter || entry.Age === ageFilter) &&
+          (!genderFilter || entry.Gender === genderFilter)
+      )
+      .forEach((entry) => {
+        result.A += parseInt(entry.A, 10);
+        result.B += parseInt(entry.B, 10);
+        result.C += parseInt(entry.C, 10);
+        result.D += parseInt(entry.D, 10);
+        result.E += parseInt(entry.E, 10);
+        result.F += parseInt(entry.F, 10);
+      });
     return [
       { name: "A", total: result.A },
       { name: "B", total: result.B },
@@ -49,11 +67,16 @@ export const MyBarChart = () => {
     ];
   };
   // ------------------------------------------
-  const transformedData = aggregateData(formattedData);
-  console.log("transformed data: ", transformedData);
+  const transformedData = aggregateData(
+    formattedData,
+    ageFilter,
+    genderFilter,
+    startDate,
+    endDate
+  );
+  // console.log("transformed data: ", transformedData);
 
   const handleBarClick = (data: any) => {
-    console.log(data);
     setSelectedBarValue(data.name);
   };
 

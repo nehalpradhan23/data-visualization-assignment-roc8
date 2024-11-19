@@ -1,6 +1,7 @@
 "use client";
 import { MyBarChart } from "@/components/charts/MyBarChart";
 import { MyLineChart } from "@/components/charts/MyLineChart";
+import { Filters } from "@/components/filters/Filters";
 import { useGlobalContext } from "@/context/ContextApi";
 
 export default function Home() {
@@ -9,7 +10,7 @@ export default function Home() {
     selectedBarValueObject: { selectedBarValue },
   } = useGlobalContext();
 
-  console.log("formatted data: ", formattedData);
+  // console.log("formatted data: ", formattedData);
 
   // {"Day":"4/10/2022","Age":"15-25","Gender":"Male","A":"880","B":"815","C":"825","D":"444","E":"154","F":"859"}
   // {"Day":"4/10/2022","Age":">25","Gender":"Male","A":"955","B":"674","C":"427","D":"401","E":"820","F":"311"}
@@ -23,7 +24,11 @@ export default function Home() {
           <div key={index}>{JSON.stringify(item)}</div>
         ))}
       </div> */}
-      <MyBarChart />
+      <div className="flex w-full">
+        <MyBarChart />
+        <Filters />
+        {/* {selectedBarValue && <Filters />} */}
+      </div>
       {selectedBarValue && (
         <div className="">
           <div className="text-center text-3xl font-bold">

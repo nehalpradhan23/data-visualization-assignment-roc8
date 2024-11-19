@@ -5,6 +5,11 @@ export function getDate(date: string) {
   return format(parsedDate, "dd MMM");
 }
 
+export function convertDate(date: string) {
+  const parsedDate = parse(date, "dd/MM/yyyy", new Date());
+  return format(parsedDate, "MM/dd/yyyy");
+}
+
 // {
 
 // import React, { useState } from 'react';

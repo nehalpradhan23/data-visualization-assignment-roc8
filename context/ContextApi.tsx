@@ -8,6 +8,24 @@ const ContextProvider = createContext<GlobalContextType>({
     selectedBarValue: null,
     setSelectedBarValue: () => {},
   },
+  selectedFiltersObject: {
+    selectedFilters: [],
+    setSelectedFilters: () => {},
+  },
+  ageFilterObject: {
+    ageFilter: null,
+    setAgeFilter: () => {},
+  },
+  genderFilterObject: {
+    genderFilter: null,
+    setGenderFilter: () => {},
+  },
+  dateObject: {
+    startDate: null,
+    endDate: null,
+    setEndDate: () => {},
+    setStartDate: () => {},
+  },
 });
 
 export default function GlobalContextProvider({
@@ -18,6 +36,12 @@ export default function GlobalContextProvider({
   const [rawData, setRawData] = useState<[][]>([]);
   const [formattedData, setFormattedData] = useState<SheetDataObject[]>([]);
   const [selectedBarValue, setSelectedBarValue] = useState<string | null>(null);
+  const [selectedFilters, setSelectedFilters] = useState<[]>([]);
+  const [ageFilter, setAgeFilter] = useState<string | null>(null);
+  const [genderFilter, setGenderFilter] = useState<string | null>(null);
+
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
 
   // fetch data ============================================
   useEffect(() => {
@@ -57,12 +81,42 @@ export default function GlobalContextProvider({
     }
   }, [rawData]);
 
+  // set start and end dates --------------------------------------------
+  useEffect(() => {
+    // get initial dates from data
+    // const startDateString = formattedData[0]?.Day?.replace(/\//g, "-");
+    // const endDateString = formattedData[
+    //   formattedData?.length - 1
+    // ]?.Day?.replace(/\//g, "-");
+    //
+    // const startDateString = formattedData[0]?.Day;
+    // const endDateString = formattedData[formattedData?.length - 1];
+    // const parseStartDate = parse(startDateString, "dd/MM/yyyy", new Date());
+    // console.log(parseStartDate);
+    // startDate(parseStartDate)
+    // console.log("start and end: ", startDateString, endDateString);
+    // -----------------------------------
+    // const date = new Date(engDate);
+    // const formattedDate2 = date?.toString();
+    // console.log("long date: ", formattedDate2);
+    // setStartDate(new Date(startDateString));
+    // setEndDate(new Date(endDateString));
+    // // setStartDate(parseStartDate);
+    // // setEndDate(parseEndDate);
+    // setStartDate(startDateString);
+    // setEndDate(endDateString);
+  }, [formattedData]);
+
   // ==============================================
   return (
     <ContextProvider.Provider
       value={{
         formattedDataObject: { formattedData, setFormattedData },
         selectedBarValueObject: { selectedBarValue, setSelectedBarValue },
+        selectedFiltersObject: { selectedFilters, setSelectedFilters },
+        ageFilterObject: { ageFilter, setAgeFilter },
+        genderFilterObject: { genderFilter, setGenderFilter },
+        dateObject: { startDate, endDate, setEndDate, setStartDate },
       }}
     >
       {children}
