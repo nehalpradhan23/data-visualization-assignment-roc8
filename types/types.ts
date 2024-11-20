@@ -34,4 +34,10 @@ export interface GlobalContextType {
     endDate: Date | null;
     setEndDate: React.Dispatch<React.SetStateAction<Date | null>>;
   };
+  userObject: {
+    user: undefined;
+    setUser: React.Dispatch<React.SetStateAction<undefined>>;
+    isAuthUser: boolean | undefined;
+    setIsAuthUser: React.Dispatch<React.SetStateAction<boolean | undefined>>;
+  };
 }

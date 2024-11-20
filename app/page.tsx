@@ -3,14 +3,33 @@ import { MyBarChart } from "@/components/charts/MyBarChart";
 import { MyLineChart } from "@/components/charts/MyLineChart";
 import { Filters } from "@/components/filters/Filters";
 import { useGlobalContext } from "@/context/ContextApi";
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
+import { useEffect } from "react";
 
 export default function Home() {
   const {
     formattedDataObject: { formattedData },
     selectedBarValueObject: { selectedBarValue },
+    userObject: { isAuthUser, setIsAuthUser, setUser },
   } = useGlobalContext();
+  const router = useRouter();
 
-  // console.log("formatted data: ", formattedData);
+  const handleLogOut = () => {
+    setIsAuthUser(false);
+    setUser(undefined);
+    Cookies.remove("token");
+    localStorage.clear();
+    router.push("/login");
+  };
+
+  useEffect(() => {
+    if (isAuthUser === undefined) router.push("/login");
+  }, []);
+
+  // if (isAuthUser === undefined) {
+  //   router.push("/login");
+  // }
 
   // {"Day":"4/10/2022","Age":"15-25","Gender":"Male","A":"880","B":"815","C":"825","D":"444","E":"154","F":"859"}
   // {"Day":"4/10/2022","Age":">25","Gender":"Male","A":"955","B":"674","C":"427","D":"401","E":"820","F":"311"}
@@ -19,6 +38,9 @@ export default function Home() {
 
   return (
     <div className="">
+      <button className="text-2xl mx-auto w-full mt-5" onClick={handleLogOut}>
+        Logout
+      </button>
       {/* <div className="">
         {formattedData?.map((item, index) => (
           <div key={index}>{JSON.stringify(item)}</div>

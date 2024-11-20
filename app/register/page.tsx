@@ -1,7 +1,8 @@
 "use client";
+import { useGlobalContext } from "@/context/ContextApi";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Registration() {
   const [name, setName] = useState("");
@@ -9,6 +10,9 @@ export default function Registration() {
   const [password, setPassword] = useState("");
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState<any>();
+  const {
+    userObject: { isAuthUser },
+  } = useGlobalContext();
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -32,10 +36,13 @@ export default function Registration() {
       console.log(axiosError.response?.data);
     }
   };
-
+  useEffect(() => {
+    // if (isAuthUser === undefined) router.push("/login");
+    if (isAuthUser) router.push("/");
+  }, [isAuthUser]);
   // ===============================================
   return (
-    <div className="w-full h-screen flex justify-center bg-gray-200">
+    <div className="w-full h-screen flex flex-col items-center justify-center bg-gray-200">
       <form
         onSubmit={handleSubmit}
         className="flex flex-col gap-4 *:flex *:gap-3 *:justify-between p-3 border border-black h-fit"
@@ -71,6 +78,12 @@ export default function Registration() {
         {errorMessage && <span>Registration failed</span>}
         {errorMessage && <span>{JSON.stringify(errorMessage)}</span>}
       </form>
+      <span
+        className="underline cursor-pointer"
+        onClick={() => router.push("/login")}
+      >
+        Go to login
+      </span>
     </div>
   );
 }

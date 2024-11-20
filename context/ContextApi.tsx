@@ -2,6 +2,7 @@
 import { GlobalContextType, SheetDataObject } from "@/types/types";
 import { createContext, useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 const ContextProvider = createContext<GlobalContextType>({
   formattedDataObject: { formattedData: [], setFormattedData: () => {} },
@@ -23,6 +24,12 @@ const ContextProvider = createContext<GlobalContextType>({
     setEndDate: () => {},
     setStartDate: () => {},
   },
+  userObject: {
+    user: undefined,
+    setUser: () => {},
+    isAuthUser: undefined,
+    setIsAuthUser: () => {},
+  },
 });
 
 export default function GlobalContextProvider({
@@ -30,6 +37,7 @@ export default function GlobalContextProvider({
 }: {
   children: React.ReactNode;
 }) {
+  const router = useRouter();
   const [rawData, setRawData] = useState<[][]>([]);
   const [formattedData, setFormattedData] = useState<SheetDataObject[]>([]);
   const [selectedBarValue, setSelectedBarValue] = useState<string | null>(null);
@@ -48,6 +56,21 @@ export default function GlobalContextProvider({
     Cookies.get("endDate") ? new Date(Cookies.get("endDate")!) : null
   );
 
+  const [user, setUser] = useState<undefined>(undefined);
+  const [isAuthUser, setIsAuthUser] = useState<boolean | undefined>(undefined);
+
+  // authenticate
+  useEffect(() => {
+    console.log(Cookies);
+    if (Cookies.get("token") !== undefined) {
+      setIsAuthUser(true);
+      const userData: any = JSON.parse(localStorage.getItem("user")!) || {};
+      setUser(userData);
+    } else {
+      setIsAuthUser(false);
+      // router.push("/login");
+    }
+  }, [Cookies]);
   // fetch data ============================================
   useEffect(() => {
     const fetchSheetData = async () => {
@@ -64,7 +87,7 @@ export default function GlobalContextProvider({
     };
 
     fetchSheetData();
-  }, []);
+  }, [isAuthUser]);
   // console.log("raw data: ", rawData);
 
   // format data =======================================================
@@ -119,6 +142,7 @@ export default function GlobalContextProvider({
         ageFilterObject: { ageFilter, setAgeFilter },
         genderFilterObject: { genderFilter, setGenderFilter },
         dateObject: { startDate, endDate, setEndDate, setStartDate },
+        userObject: { user, setUser, isAuthUser, setIsAuthUser },
       }}
     >
       {children}
