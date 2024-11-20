@@ -4,6 +4,7 @@ import { getDate } from "@/utils/getDate";
 import { isAfter, isBefore, parse } from "date-fns";
 import React from "react";
 import {
+  Brush,
   CartesianGrid,
   Legend,
   Line,
@@ -62,7 +63,7 @@ export const MyLineChart = () => {
   // const getDate= getDate()
   // ==============================
   return (
-    <div className="px-3 bg-gray-50 mt-5 max-md:h-[200px] h-[300px]">
+    <div className="md:px-3 bg-gray-50 mt-5 max-md:h-[300px] h-[350px]">
       <ResponsiveContainer width="100%">
         {/* <ResponsiveContainer width="100%" height={300}> */}
         <LineChart data={lineChartData}>
@@ -71,6 +72,7 @@ export const MyLineChart = () => {
           <YAxis />
           <Tooltip /> <Legend />
           <Line type="monotone" dataKey="Value" stroke="#8884d8" />
+          <Brush />
         </LineChart>
       </ResponsiveContainer>
     </div>

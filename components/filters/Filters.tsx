@@ -30,8 +30,8 @@ export const Filters = () => {
 
   // ================================================================
   return (
-    <div className="flex max-md:flex-row flex-col h-fit gap-3 max-md:gap-6 ml-10 mt-5 max-md:w-[500px] w-[250px] border bg-gray-100 border-black p-4 mb-5">
-      <div className="flex justify-between items-baseline mb-4 max-md:flex-col">
+    <div className="flex flex-col h-fit gap-3 max-md:gap-6 ml-10 mt-5 max-md:w-[350px] w-[300px] border bg-gray-100 border-black p-4 mb-5 max-md:flex-col">
+      <div className="flex justify-between items-baseline mb-4">
         <span className="text-2xl font-bold">Filters: </span>
         <span
           className="text-right cursor-pointer hover:underline font-bold p-1 border border-black"
@@ -67,8 +67,9 @@ export const Filters = () => {
             <option value="Female">Female</option>
           </select>
         </div>
-        {/* date picker */}
       </div>
+      <div className="h-[1px] border border-black"></div>
+      {/* date picker */}
       <DatePickerComponent />
     </div>
   );

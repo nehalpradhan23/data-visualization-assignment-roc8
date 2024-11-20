@@ -37,7 +37,7 @@ export default function Home() {
   // {"Day":"4/10/2022","Age":">25","Gender":"Female","A":"895","B":"236","C":"276","D":"373","E":"840","F":"891"}
 
   return (
-    <div className="">
+    <div className="mx-[20px]">
       <div className="flex w-full justify-end">
         <button
           className="text-2xl justify-end pr-5 mt-5"
@@ -51,7 +51,7 @@ export default function Home() {
           <div key={index}>{JSON.stringify(item)}</div>
         ))}
       </div> */}
-      <div className="flex w-full max-md:flex-col">
+      <div className="flex justify-between w-full max-md:flex-col">
         <MyBarChart />
         <Filters />
         {/* {selectedBarValue && <Filters />} */}
