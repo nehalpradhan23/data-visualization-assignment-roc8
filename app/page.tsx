@@ -38,9 +38,14 @@ export default function Home() {
 
   return (
     <div className="">
-      <button className="text-2xl mx-auto w-full mt-5" onClick={handleLogOut}>
-        Logout
-      </button>
+      <div className="flex w-full justify-end">
+        <button
+          className="text-2xl justify-end pr-5 mt-5"
+          onClick={handleLogOut}
+        >
+          Logout
+        </button>
+      </div>
       {/* <div className="">
         {formattedData?.map((item, index) => (
           <div key={index}>{JSON.stringify(item)}</div>

@@ -14,15 +14,29 @@ export default function Registration() {
     userObject: { isAuthUser },
   } = useGlobalContext();
 
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    if (name.length <= 3) {
+      setErrorMessage("name must be more than 3 characters");
+      return;
+    }
+    if (!emailRegex.test(email)) {
+      setErrorMessage("invalid email");
+      return;
+    }
+    if (password.length <= 5) {
+      setErrorMessage("Password must contain more than 5 characters");
+      return;
+    }
     try {
       const response = await axios.post("/api/register", {
         name,
         email,
         password,
       });
-      console.log(response.data.message);
+      // console.log(response.data.message);
 
       router.push("/login");
     } catch (error) {
@@ -76,7 +90,9 @@ export default function Registration() {
           Register
         </button>
         {errorMessage && <span>Registration failed</span>}
-        {errorMessage && <span>{JSON.stringify(errorMessage)}</span>}
+        {errorMessage && (
+          <span className="text-red-500">{JSON.stringify(errorMessage)}</span>
+        )}
       </form>
       <span
         className="underline cursor-pointer"

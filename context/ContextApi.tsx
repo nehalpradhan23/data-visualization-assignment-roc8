@@ -37,7 +37,6 @@ export default function GlobalContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const router = useRouter();
   const [rawData, setRawData] = useState<[][]>([]);
   const [formattedData, setFormattedData] = useState<SheetDataObject[]>([]);
   const [selectedBarValue, setSelectedBarValue] = useState<string | null>(null);
@@ -58,10 +57,11 @@ export default function GlobalContextProvider({
 
   const [user, setUser] = useState<undefined>(undefined);
   const [isAuthUser, setIsAuthUser] = useState<boolean | undefined>(undefined);
+  // =========================================
 
-  // authenticate
+  // authenticate ---------------------------
   useEffect(() => {
-    console.log(Cookies);
+    // console.log(Cookies);
     if (Cookies.get("token") !== undefined) {
       setIsAuthUser(true);
       const userData: any = JSON.parse(localStorage.getItem("user")!) || {};

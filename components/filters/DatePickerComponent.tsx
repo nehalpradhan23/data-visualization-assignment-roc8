@@ -1,5 +1,4 @@
 import { useGlobalContext } from "@/context/ContextApi";
-import { convertDate } from "@/utils/getDate";
 import { format, max, min, parse } from "date-fns";
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
@@ -26,8 +25,10 @@ export const DatePickerComponent = () => {
   useEffect(() => {
     const dates = formattedData.map((item) => parseDate(item.Day));
     if (dates.length > 0) {
-      setStartDate(min(dates));
-      setEndDate(max(dates));
+      if (startDate === null && endDate == null) {
+        setStartDate(min(dates));
+        setEndDate(max(dates));
+      }
     }
   }, [formattedData]);
   // console.log("start and end date:======== ", startDate, endDate);

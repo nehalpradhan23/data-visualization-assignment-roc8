@@ -62,7 +62,7 @@ export const MyLineChart = () => {
   // const getDate= getDate()
   // ==============================
   return (
-    <div className="px-3 md:px-10 mt-5 max-md:h-[200px] h-[300px]">
+    <div className="px-3 bg-gray-50 mt-5 max-md:h-[200px] h-[300px]">
       <ResponsiveContainer width="100%">
         {/* <ResponsiveContainer width="100%" height={300}> */}
         <LineChart data={lineChartData}>

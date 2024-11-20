@@ -1,6 +1,5 @@
 import { useGlobalContext } from "@/context/ContextApi";
-import React, { useState } from "react";
-import DatePicker from "react-datepicker";
+import React from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { DatePickerComponent } from "./DatePickerComponent";
 import { parse } from "date-fns";
@@ -28,13 +27,14 @@ export const Filters = () => {
     setStartDate(parseDate(formattedData[0].Day));
     setEndDate(parseDate(formattedData[formattedData.length - 1].Day));
   };
+
   // ================================================================
   return (
     <div className="flex max-md:flex-row flex-col h-fit gap-3 max-md:gap-6 ml-10 mt-5 max-md:w-[500px] w-[250px] border bg-gray-100 border-black p-4 mb-5">
-      <div className="flex justify-between items-baseline mb-4">
+      <div className="flex justify-between items-baseline mb-4 max-md:flex-col">
         <span className="text-2xl font-bold">Filters: </span>
         <span
-          className="text-right cursor-pointer hover:underline"
+          className="text-right cursor-pointer hover:underline font-bold p-1 border border-black"
           onClick={resetFilters}
         >
           Reset filters
@@ -42,7 +42,7 @@ export const Filters = () => {
       </div>
       <div className="flex flex-col gap-4">
         {/* age ----------------- */}
-        <div className="flex justify-between">
+        <div className="flex justify-between max-md:flex-col">
           <label className="">Age:</label>
           <select
             className="border border-black"
@@ -55,7 +55,7 @@ export const Filters = () => {
           </select>
         </div>
         {/* gender --------------------------------- */}
-        <div className="flex justify-between">
+        <div className="flex justify-between max-md:flex-col">
           <label className="">Gender:</label>
           <select
             className="border border-black"

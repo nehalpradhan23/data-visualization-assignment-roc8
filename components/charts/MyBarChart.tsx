@@ -87,7 +87,7 @@ export const MyBarChart = () => {
     startDate,
     endDate
   );
-  console.log("transformed data: ", transformedData);
+  // console.log("transformed data: ", transformedData);
 
   const handleBarClick = (data: any) => {
     setSelectedBarValue(data.name);
@@ -102,7 +102,7 @@ export const MyBarChart = () => {
           data={transformedData}
           margin={{
             top: 20,
-            right: 40,
+            right: 60,
             left: 5,
             bottom: 5,
           }}
